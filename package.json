@@ -1,7 +1,7 @@
 {
 	"name": "xknife",
 	"description": "Funzionalità per la codifica / decodifica del testo / file (blob) in base 64",
-	"version": "0.0.2",
+	"version": "1.0.0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
