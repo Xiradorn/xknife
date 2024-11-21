@@ -1,0 +1,26 @@
+{
+	"name": "xknife",
+	"description": "Funzionalità per la codifica / decodifica del testo / file (blob) in base 64",
+	"version": "0.0.2",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"homepage": "https://xiradorn.it",
+	"repository": {
+		"url": "https://github.com/xiradorn/xknife"
+	},
+	"scripts": {
+		"build": "tsup"
+	},
+	"keywords": [
+		"base64",
+		"encode",
+		"decode"
+	],
+	"author": "xiradorn",
+	"license": "MIT",
+	"devDependencies": {
+		"tsup": "^8.3.5",
+		"typescript": "^5.6.3"
+	}
+}
