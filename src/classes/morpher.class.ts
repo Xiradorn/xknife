@@ -5,7 +5,8 @@
  * - Gestire stringhe UTF-16 e verificarne la conformità.
  * - Codificare/decodificare stringhe in formato Base64.
  * - Convertire file Blob in Base64.
- * - Rappresentare stringhe Unicode in formato `\uXXXX`, incluso il supporto per caratteri surrogati.
+ * - Rappresentare stringhe Unicode in formato `\uXXXX` e convertirle da/verso tale formato.
+ * - Gestire caratteri complessi, inclusi quelli fuori dal Basic Multilingual Plane (BMP).
  *
  * È progettata per applicazioni che richiedono un trattamento preciso dei dati Unicode,
  * soprattutto in ambienti in cui è necessaria la compatibilità con Base64 e la gestione di caratteri complessi.
@@ -142,6 +143,30 @@ export class XirGlyphMorpher {
 				return `\\u${code}`;
 			})
 			.join("");
+	}
+
+	/**
+	 * Converte una stringa in formato `\uXXXX` nel corrispondente testo normale.
+	 *
+	 * @param unicodeStr - La stringa in formato `\uXXXX`.
+	 * @returns Il testo normale corrispondente.
+	 */
+	static fromUnicode(unicodeStr: string): string {
+		return unicodeStr.replace(/\\u([0-9a-fA-F]{4})/g, (_, hex) =>
+			String.fromCharCode(parseInt(hex, 16))
+		);
+	}
+
+	/**
+	 * Converte una stringa in formato `\uXXXX` (anche con surrogati) nel corrispondente testo normale.
+	 *
+	 * @param unicodeStr - La stringa in formato `\uXXXX`.
+	 * @returns Il testo normale corrispondente.
+	 */
+	static fromUnicodeSurrogates(unicodeStr: string): string {
+		return unicodeStr.replace(/\\u([0-9a-fA-F]{4})/g, (_, hex) =>
+			String.fromCodePoint(parseInt(hex, 16))
+		);
 	}
 }
 
