@@ -1,3 +1,7 @@
+**@xiradorn/xknife** • [**Docs**](globals.md)
+
+***
+
 <h1 align="center">Welcome to @xiradorn/xknife 👋</h1>
 <p>
   <a href="https://www.npmjs.com/package/@xiradorn/xknife" target="_blank">
@@ -26,7 +30,7 @@ npm install @xiradorn/xknife
 
 ## Docs
 
-**@xiradorn/xknife** • [**Docs**](docs/globals.md)
+**@xiradorn/xknife** • [**Docs**](_media/globals.md)
 
 ## Author
 
