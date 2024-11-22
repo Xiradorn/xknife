@@ -5,7 +5,8 @@
  * - Gestire stringhe UTF-16 e verificarne la conformità.
  * - Codificare/decodificare stringhe in formato Base64.
  * - Convertire file Blob in Base64.
- * - Rappresentare stringhe Unicode in formato `\uXXXX`, incluso il supporto per caratteri surrogati.
+ * - Rappresentare stringhe Unicode in formato `\uXXXX` e convertirle da/verso tale formato.
+ * - Gestire caratteri complessi, inclusi quelli fuori dal Basic Multilingual Plane (BMP).
  *
  * È progettata per applicazioni che richiedono un trattamento preciso dei dati Unicode,
  * soprattutto in ambienti in cui è necessaria la compatibilità con Base64 e la gestione di caratteri complessi.
@@ -81,6 +82,20 @@ declare class XirGlyphMorpher {
      * @returns Una stringa in formato `\uXXXX` che supporta caratteri surrogati.
      */
     static toUnicodeSurrogates(str: string): string;
+    /**
+     * Converte una stringa in formato `\uXXXX` nel corrispondente testo normale.
+     *
+     * @param unicodeStr - La stringa in formato `\uXXXX`.
+     * @returns Il testo normale corrispondente.
+     */
+    static fromUnicode(unicodeStr: string): string;
+    /**
+     * Converte una stringa in formato `\uXXXX` (anche con surrogati) nel corrispondente testo normale.
+     *
+     * @param unicodeStr - La stringa in formato `\uXXXX`.
+     * @returns Il testo normale corrispondente.
+     */
+    static fromUnicodeSurrogates(unicodeStr: string): string;
 }
 
 export { XirGlyphMorpher as XMorpher, XirGlyphMorpher };
