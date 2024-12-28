@@ -8,15 +8,18 @@
 
 Classe `XirGlyphMorpher` (alias `XMorpher`).
 
-Questa classe fornisce metodi statici per:
-- Gestire stringhe UTF-16 e verificarne la conformità.
-- Codificare/decodificare stringhe in formato Base64.
-- Convertire file Blob in Base64.
-- Rappresentare stringhe Unicode in formato `\uXXXX` e convertirle da/verso tale formato.
-- Gestire caratteri complessi, inclusi quelli fuori dal Basic Multilingual Plane (BMP).
+Questa classe fornisce metodi statici per la gestione avanzata di stringhe Unicode e dati codificati in Base64.
+È progettata per supportare applicazioni che richiedono:
+- Verifica della conformità delle stringhe UTF-16.
+- Conversione tra stringhe e rappresentazioni Base64.
+- Manipolazione e rappresentazione di stringhe Unicode, inclusa la gestione di caratteri complessi.
+- Conversione di file Blob in Base64.
 
-È progettata per applicazioni che richiedono un trattamento preciso dei dati Unicode,
-soprattutto in ambienti in cui è necessaria la compatibilità con Base64 e la gestione di caratteri complessi.
+Supporta inoltre la rappresentazione e la decodifica di caratteri Unicode in formato `\uXXXX`,
+inclusa la gestione di caratteri surrogati fuori dal Basic Multilingual Plane (BMP).
+
+Questa classe è ideale per ambienti che necessitano di un trattamento preciso di stringhe Unicode
+o interoperabilità con standard come Base64.
 
 ## Author
 
@@ -40,7 +43,7 @@ Xiradorn
 
 Decodifica una stringa Base64 in una stringa UTF-16.
 
-Prima di procedere, verifica che la stringa sia ben formata.
+Verifica che la stringa Base64 sia valida prima di procedere.
 
 #### Parameters
 
@@ -52,11 +55,19 @@ La stringa Base64 da decodificare.
 
 `undefined` \| `string`
 
-La stringa decodificata in UTF-16 o `undefined` se la stringa non è ben formata.
+La stringa decodificata in UTF-16 o `undefined` se la stringa non è valida.
+
+#### Example
+
+```ts
+const base64 = "SGVsbG8=";
+const str = XirGlyphMorpher.decoder(base64);
+console.log(str); // "Hello"
+```
 
 #### Defined in
 
-[morpher.class.ts:89](https://github.com/Xiradorn/xknife/blob/9e3b823c09e74f8001d24ab2d2b60d629c8ec522/src/classes/morpher.class.ts#L89)
+[morpher.class.ts:118](https://github.com/Xiradorn/xknife/blob/074e65ee00cd901d8f8a39444890f890bb5aaec6/src/classes/morpher.class.ts#L118)
 
 ***
 
@@ -66,23 +77,31 @@ La stringa decodificata in UTF-16 o `undefined` se la stringa non è ben formata
 
 Codifica una stringa UTF-16 in formato Base64.
 
-Prima di procedere, verifica che la stringa sia ben formata secondo UTF-16.
+Verifica che la stringa sia ben formata prima di procedere.
 
 #### Parameters
 
 • **string**: `string`
 
-La stringa da codificare.
+La stringa UTF-16 da codificare.
 
 #### Returns
 
 `undefined` \| `string`
 
-La stringa codificata in Base64 o `undefined` se la stringa non è ben formata.
+La stringa codificata in Base64 o `undefined` se la stringa non è valida.
+
+#### Example
+
+```ts
+const str = "Hello";
+const base64 = XirGlyphMorpher.encoder(str);
+console.log(base64); // "SGVsbG8="
+```
 
 #### Defined in
 
-[morpher.class.ts:69](https://github.com/Xiradorn/xknife/blob/9e3b823c09e74f8001d24ab2d2b60d629c8ec522/src/classes/morpher.class.ts#L69)
+[morpher.class.ts:95](https://github.com/Xiradorn/xknife/blob/074e65ee00cd901d8f8a39444890f890bb5aaec6/src/classes/morpher.class.ts#L95)
 
 ***
 
@@ -92,13 +111,11 @@ La stringa codificata in Base64 o `undefined` se la stringa non è ben formata.
 
 Converte un file Blob in una stringa Base64.
 
-Questo metodo è asincrono e utilizza un `ArrayBuffer` per leggere i dati del Blob.
-
 #### Parameters
 
 • **blob**: `Blob`
 
-Il Blob da convertire in Base64.
+Il file Blob da convertire.
 
 #### Returns
 
@@ -106,9 +123,16 @@ Il Blob da convertire in Base64.
 
 Una stringa Base64 contenente i dati del Blob.
 
+#### Example
+
+```ts
+const blob = new Blob(["Hello"], { type: "text/plain" });
+XirGlyphMorpher.fileIn64(blob).then(console.log); // "SGVsbG8="
+```
+
 #### Defined in
 
-[morpher.class.ts:109](https://github.com/Xiradorn/xknife/blob/9e3b823c09e74f8001d24ab2d2b60d629c8ec522/src/classes/morpher.class.ts#L109)
+[morpher.class.ts:138](https://github.com/Xiradorn/xknife/blob/074e65ee00cd901d8f8a39444890f890bb5aaec6/src/classes/morpher.class.ts#L138)
 
 ***
 
@@ -130,33 +154,17 @@ La stringa in formato `\uXXXX`.
 
 Il testo normale corrispondente.
 
-#### Defined in
+#### Example
 
-[morpher.class.ts:154](https://github.com/Xiradorn/xknife/blob/9e3b823c09e74f8001d24ab2d2b60d629c8ec522/src/classes/morpher.class.ts#L154)
-
-***
-
-### fromUnicodeSurrogates()
-
-> `static` **fromUnicodeSurrogates**(`unicodeStr`): `string`
-
-Converte una stringa in formato `\uXXXX` (anche con surrogati) nel corrispondente testo normale.
-
-#### Parameters
-
-• **unicodeStr**: `string`
-
-La stringa in formato `\uXXXX`.
-
-#### Returns
-
-`string`
-
-Il testo normale corrispondente.
+```ts
+const unicode = "\\u0048\\u0065\\u006c\\u006c\\u006f";
+const str = XirGlyphMorpher.fromUnicode(unicode);
+console.log(str); // "Hello"
+```
 
 #### Defined in
 
-[morpher.class.ts:166](https://github.com/Xiradorn/xknife/blob/9e3b823c09e74f8001d24ab2d2b60d629c8ec522/src/classes/morpher.class.ts#L166)
+[morpher.class.ts:175](https://github.com/Xiradorn/xknife/blob/074e65ee00cd901d8f8a39444890f890bb5aaec6/src/classes/morpher.class.ts#L175)
 
 ***
 
@@ -166,8 +174,6 @@ Il testo normale corrispondente.
 
 Converte una stringa in una rappresentazione Unicode in formato `\uXXXX`.
 
-Questo metodo supporta solo caratteri all'interno del Basic Multilingual Plane (BMP).
-
 #### Parameters
 
 • **str**: `string`
@@ -178,33 +184,16 @@ La stringa da convertire.
 
 `string`
 
-Una stringa in formato `\uXXXX`.
+Una stringa in formato `\uXXXX` che rappresenta i caratteri Unicode.
+
+#### Example
+
+```ts
+const str = "Hello";
+const unicode = XirGlyphMorpher.toUnicode(str);
+console.log(unicode); // "\u0048\u0065\u006c\u006c\u006f"
+```
 
 #### Defined in
 
-[morpher.class.ts:122](https://github.com/Xiradorn/xknife/blob/9e3b823c09e74f8001d24ab2d2b60d629c8ec522/src/classes/morpher.class.ts#L122)
-
-***
-
-### toUnicodeSurrogates()
-
-> `static` **toUnicodeSurrogates**(`str`): `string`
-
-Converte una stringa in una rappresentazione Unicode in formato `\uXXXX`,
-gestendo anche caratteri fuori dal BMP (caratteri surrogati).
-
-#### Parameters
-
-• **str**: `string`
-
-La stringa da convertire.
-
-#### Returns
-
-`string`
-
-Una stringa in formato `\uXXXX` che supporta caratteri surrogati.
-
-#### Defined in
-
-[morpher.class.ts:139](https://github.com/Xiradorn/xknife/blob/9e3b823c09e74f8001d24ab2d2b60d629c8ec522/src/classes/morpher.class.ts#L139)
+[morpher.class.ts:154](https://github.com/Xiradorn/xknife/blob/074e65ee00cd901d8f8a39444890f890bb5aaec6/src/classes/morpher.class.ts#L154)

@@ -30,7 +30,7 @@ npm install @xiradorn/xknife
 
 ## Docs
 
-**@xiradorn/xknife** • [**Docs**](_media/globals.md)
+**@xiradorn/xknife** • [**Docs**](docs/globals.md)
 
 ## Author
 
