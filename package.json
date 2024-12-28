@@ -1,7 +1,7 @@
 {
 	"name": "@xiradorn/xknife",
-	"description": "Classe per il morphing delle stringhe come codifica / decodifica del testo / file (blob) in base 64, encode in formato unicode dei caratteri e altro",
-	"version": "1.4.0",
+	"description": "Classe per il morphing delle stringhe come codifica / decodifica del testo / file (blob) in base 64, encode in formato unicode dei caratteri e altro + Classe di ricerca",
+	"version": "2.0.0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
